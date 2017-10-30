@@ -10,9 +10,11 @@
   <paths name="paths"/>
   <objects name="objects">
     <object>objects\obj_initialize</object>
+    <object>objects\obj_controller_debugger</object>
   </objects>
   <rooms name="rooms">
     <room>rooms\rm_initialize</room>
+    <room>rooms\rm_main</room>
   </rooms>
   <help>
     <rtf>help.rtf</rtf>

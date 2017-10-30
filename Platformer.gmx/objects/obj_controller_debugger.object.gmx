@@ -25,40 +25,22 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Initialize the game:
-
-/*
+            <string>/*
  * © 2017 - Reece Warren, Sam Brooks.
- * Initialize the game:
+ * Create debug variables:
  */
-
-//FRAME-DELTA:
-globalvar FRAME_DELTA, DESIRED_FPS, FD;
-
-DESIRED_FPS = 60;
-FRAME_DELTA = DESIRED_FPS / 1000000 * delta_time;
-FD = FRAME_DELTA;
  
-//Inputs:
-globalvar KeyW, KeyA, KeyS, KeyD;
+FPS = fps_real;
+FPS_MIN = 1000000;
+FPS_MAX = FPS;
 
-//Create game controller objects:
-instance_create(0,0,obj_controller_debugger);
-
-//Debug variables:
-globalvar VERSION;
-VERSION = string(GM_version);
-
-//Go to main menu:
-room_goto(rm_main);
-
-
+Timer = 0;
 </string>
           </argument>
         </arguments>
       </action>
     </event>
-    <event eventtype="3" enumb="1">
+    <event eventtype="3" enumb="0">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -75,10 +57,61 @@ room_goto(rm_main);
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Update Delta Time:
+            <string>/*
+ * © 2017 - Reece Warren, Sam Brooks.
+ * Calculate debug variables:
+ */
 
-DESIRED_FPS = 60;
-FRAME_DELTA = DESIRED_FPS / 1000000 * delta_time;
+//Time 1 second. (Where 1 update is 1/60th of a second).
+Timer += (1/60) * FRAME_DELTA;
+
+//Update FPS values every second:
+if (Timer &gt;= 1){   
+    FPS = floor(fps_real);
+    
+    if (FPS &gt; FPS_MAX){
+        FPS_MAX = FPS;
+    }
+    
+    if (FPS &lt; FPS_MIN){
+        FPS_MIN = FPS;
+    }
+    
+    Timer = 0;    
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>/*
+ * © 2017 - Reece Warren, Sam Brooks.
+ * Draw FPS:
+ */
+
+draw_text(16,16,"VERSION: " + VERSION);
+draw_text(16,48,"FPS: " + string(FPS));
+draw_text(16,64,"FPS MIN: " + string(FPS_MIN));
+draw_text(16,80,"FPS MAX: " + string(FPS_MAX));
+
+
 </string>
           </argument>
         </arguments>
