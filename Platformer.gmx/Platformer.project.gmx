@@ -8,9 +8,15 @@
   <sprites name="sprites"/>
   <backgrounds name="background"/>
   <paths name="paths"/>
+<<<<<<< HEAD
   <objects name="objects">
     <object>objects\obj_initialize</object>
   </objects>
+=======
+  <rooms name="rooms">
+    <room>rooms\rm_initialize</room>
+  </rooms>
+>>>>>>> origin/master
   <help>
     <rtf>help.rtf</rtf>
   </help>
